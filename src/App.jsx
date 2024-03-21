@@ -12,11 +12,20 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-const addJob = (newJob) => {
-  console.log(newJob);
-};
-
 function App() {
+  // Add Job to server - passing from add job page
+  const addJob = async (newJob) => {
+    console.log(newJob);
+    const response = await fetch("/api/jobs", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newJob),
+    });
+    return;
+  };
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<MainLayout />}>

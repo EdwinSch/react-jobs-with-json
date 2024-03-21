@@ -7,10 +7,10 @@ const AddJobPage = ({ addJobSubmit }) => {
 
   const [input, setInput] = useState({
     title: "",
-    type: "Full-Time",
+    type: "",
     location: "",
     description: "",
-    salary: "Under $50K",
+    salary: "",
     companyName: "",
     companyDescription: "",
     contactEmail: "",
@@ -63,13 +63,15 @@ const AddJobPage = ({ addJobSubmit }) => {
                 Job Type
               </label>
               <select
-                required
                 id="type"
                 name="type"
                 value={input.type}
                 onChange={handleChange}
                 className="border rounded w-full py-2 px-3"
               >
+                <option value="" disabled>
+                  Select a contract type...
+                </option>
                 <option value="Full-Time">Full-Time</option>
                 <option value="Part-Time">Part-Time</option>
                 <option value="Remote">Remote</option>
@@ -88,7 +90,7 @@ const AddJobPage = ({ addJobSubmit }) => {
                 value={input.title}
                 onChange={handleChange}
                 className="border rounded w-full py-2 px-3 mb-2"
-                placeholder="eg. Beautiful Apartment In Miami"
+                placeholder="eg. Front-end developer"
               />
             </div>
             <div className="mb-4">
@@ -122,8 +124,10 @@ const AddJobPage = ({ addJobSubmit }) => {
                 value={input.salary}
                 onChange={handleChange}
                 className="border rounded w-full py-2 px-3"
-                required
               >
+                <option value="" disabled>
+                  Select a salary range...
+                </option>
                 <option value="Under $50K">Under $50K</option>
                 <option value="$50K - 60K">$50K - $60K</option>
                 <option value="$60K - 70K">$60K - $70K</option>
