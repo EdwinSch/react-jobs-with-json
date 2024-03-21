@@ -13,15 +13,24 @@ import {
 } from "react-router-dom";
 
 function App() {
-  // Add Job to server - passing from add job page
+  // Add New Job to server - passing from add job page
   const addJob = async (newJob) => {
-    console.log(newJob);
+    // console.log(newJob);
     const response = await fetch("/api/jobs", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(newJob),
+    });
+    return;
+  };
+
+  // Delete Job from server
+  const deleteJob = async (id) => {
+    // console.log("delete", id);
+    const response = await fetch(`/api/jobs/${id}`, {
+      method: "DELETE",
     });
     return;
   };
@@ -33,7 +42,7 @@ function App() {
         <Route path="/jobs" element={<JobsPage />} />
         <Route
           path="/jobs/:id"
-          element={<SingleJobPage />}
+          element={<SingleJobPage deleteJob={deleteJob} />}
           loader={jobLoader}
         />
         <Route path="/add-job" element={<AddJobPage addJobSubmit={addJob} />} />
