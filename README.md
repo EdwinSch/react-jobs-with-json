@@ -7,9 +7,9 @@ This web app is a (mocked) jobs listing site for React and Front-End developers.
 #### 🛠️ Build with
 
 - React
-- CSS
+- Tailwind
 - Vite
-- JOSN Server
+- JSON Server
 - React Router DOM
 - React Icons
 - React Spinners
