@@ -1,20 +1,23 @@
+import { useParams, useLoaderData, Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
-const AddJobPage = ({ addJobSubmit }) => {
+const EditJobPage = ({ updateJobSubmit }) => {
+  const job = useLoaderData();
+
   // Init Navigate from Router
   const navigate = useNavigate();
+  const { id } = useParams();
 
   const [input, setInput] = useState({
-    title: "",
-    type: "",
-    location: "",
-    description: "",
-    salary: "",
-    companyName: "",
-    companyDescription: "",
-    contactEmail: "",
-    contactPhone: "",
+    title: job.title,
+    type: job.type,
+    location: job.location,
+    description: job.description,
+    salary: job.salary,
+    companyName: job.company.name,
+    companyDescription: job.company.description,
+    contactEmail: job.company.contactEmail,
+    contactPhone: job.company.contactPhone,
   });
 
   // Handle input change
@@ -29,7 +32,8 @@ const AddJobPage = ({ addJobSubmit }) => {
     event.preventDefault();
 
     // Structure inputs as JSON object
-    const newJob = {
+    const updatedJob = {
+      id: id,
       title: input.title,
       type: input.type,
       location: input.location,
@@ -44,8 +48,8 @@ const AddJobPage = ({ addJobSubmit }) => {
     };
 
     // console.log(newJob);
-    addJobSubmit(newJob);
-    return navigate("/jobs");
+    updateJobSubmit(updatedJob);
+    return navigate(`/jobs/${id}`);
   };
 
   return (
@@ -53,7 +57,9 @@ const AddJobPage = ({ addJobSubmit }) => {
       <div className="container m-auto max-w-2xl py-24">
         <div className="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0">
           <form onSubmit={handleSubmit}>
-            <h2 className="text-3xl text-center font-semibold mb-6">Add Job</h2>
+            <h2 className="text-3xl text-center font-semibold mb-6">
+              Edit Job
+            </h2>
 
             <div className="mb-4">
               <label
@@ -68,7 +74,6 @@ const AddJobPage = ({ addJobSubmit }) => {
                 value={input.type}
                 onChange={handleChange}
                 className="border rounded w-full py-2 px-3"
-                required
               >
                 <option value="" disabled>
                   Select a contract type...
@@ -92,7 +97,6 @@ const AddJobPage = ({ addJobSubmit }) => {
                 onChange={handleChange}
                 className="border rounded w-full py-2 px-3 mb-2"
                 placeholder="eg. Front-end developer"
-                required
               />
             </div>
             <div className="mb-4">
@@ -126,7 +130,6 @@ const AddJobPage = ({ addJobSubmit }) => {
                 value={input.salary}
                 onChange={handleChange}
                 className="border rounded w-full py-2 px-3"
-                required
               >
                 <option value="" disabled>
                   Select a salary range...
@@ -157,7 +160,6 @@ const AddJobPage = ({ addJobSubmit }) => {
                 onChange={handleChange}
                 className="border rounded w-full py-2 px-3 mb-2"
                 placeholder="Company Location"
-                required
               />
             </div>
 
@@ -178,7 +180,6 @@ const AddJobPage = ({ addJobSubmit }) => {
                 onChange={handleChange}
                 className="border rounded w-full py-2 px-3"
                 placeholder="Company Name"
-                required
               />
             </div>
 
@@ -215,7 +216,6 @@ const AddJobPage = ({ addJobSubmit }) => {
                 onChange={handleChange}
                 className="border rounded w-full py-2 px-3"
                 placeholder="Email address for applicants"
-                required
               />
             </div>
             <div className="mb-4">
@@ -233,7 +233,6 @@ const AddJobPage = ({ addJobSubmit }) => {
                 onChange={handleChange}
                 className="border rounded w-full py-2 px-3"
                 placeholder="Optional phone for applicants"
-                required
               />
             </div>
 
@@ -242,7 +241,7 @@ const AddJobPage = ({ addJobSubmit }) => {
                 className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
                 type="submit"
               >
-                Add Job
+                Save Edit
               </button>
             </div>
           </form>
@@ -251,5 +250,4 @@ const AddJobPage = ({ addJobSubmit }) => {
     </section>
   );
 };
-
-export default AddJobPage;
+export default EditJobPage;
